@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Byte Quest GCSE CS</string>
+    <string name="title_activity_main">Byte Quest GCSE CS</string>
+    <string name="package_name">com.bytequest.gcsecs</string>
+    <string name="custom_url_scheme">com.bytequest.gcsecs</string>
+</resources>
