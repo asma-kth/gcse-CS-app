@@ -6,7 +6,7 @@ export const erlUnit: Topic = {
   title: 'OCR Exam Reference Language',
   blurb: 'The pseudocode style used in OCR exam papers, side by side with Python, with drills.',
   paper: 'Skills',
-  icon: '📘',
+  icon: 'book',
   lessons: [
     {
       id: 'erl-l1',

@@ -6,7 +6,7 @@ export const t1_5: Topic = {
   title: 'Systems Software',
   blurb: 'What the operating system does and why utility software matters.',
   paper: 'Paper 1',
-  icon: '🧰',
+  icon: 'system',
   lessons: [
     {
       id: 't1-5-l1',

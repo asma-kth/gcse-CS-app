@@ -6,7 +6,7 @@ export const t1_6: Topic = {
   title: 'Ethical, Legal, Cultural and Environmental Impacts',
   blurb: 'The impact of technology on people, the law, culture, privacy and the planet.',
   paper: 'Paper 1',
-  icon: '⚖️',
+  icon: 'scales',
   lessons: [
     {
       id: 't1-6-l1',

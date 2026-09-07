@@ -6,7 +6,7 @@ export const t2_1: Topic = {
   title: 'Algorithms',
   blurb: 'Computational thinking, flowcharts, pseudocode, trace tables, searching and sorting.',
   paper: 'Paper 2',
-  icon: '🧠',
+  icon: 'brain',
   lessons: [
     {
       id: 't2-1-l1',

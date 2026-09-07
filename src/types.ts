@@ -1,3 +1,5 @@
+import type { IconName } from './components/Icon';
+
 /** Content model for Byte Quest. */
 
 export type Block =
@@ -61,7 +63,7 @@ export interface Topic {
   title: string;
   blurb: string;
   paper: 'Paper 1' | 'Paper 2' | 'Skills';
-  icon: string;
+  icon: IconName;
   lessons: Lesson[];
   quizzes: [Quiz, Quiz];
   exam: ExamQuestion[];
@@ -76,4 +78,20 @@ export interface Progress {
   quizBest: Record<string, number>;
   examBest: Record<string, number>;
   factsSeen: number[];
+}
+
+/** A full mock exam paper made of MCQ and written questions. */
+export type PaperItem =
+  | { kind: 'mcq'; id: string; stem: string; context?: string; options: string[]; answer: number; why: string; marks: 1 }
+  | { kind: 'written'; id: string; stem: string; context?: string; marks: number; markScheme: MarkPoint[]; modelAnswer: string };
+
+export interface ExamPaper {
+  id: string;
+  component: 'Paper 1' | 'Paper 2';
+  number: 1 | 2 | 3;
+  title: string;
+  minutes: number;
+  totalMarks: number;
+  blurb: string;
+  sections: { name: string; items: PaperItem[] }[];
 }

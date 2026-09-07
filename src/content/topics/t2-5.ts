@@ -6,7 +6,7 @@ export const t2_5: Topic = {
   title: 'Programming Languages and IDEs',
   blurb: 'High level and low level languages, translators and the tools inside an IDE.',
   paper: 'Paper 2',
-  icon: '🛠️',
+  icon: 'toolbox',
   lessons: [
     {
       id: 't2-5-l1',

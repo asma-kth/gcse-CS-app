@@ -3,6 +3,7 @@ import type { Progress, Topic } from '../types';
 import { levelFromXp, RANKS, rankFor } from '../game/store';
 import { topicProgress } from './DungeonMap';
 import Mascot from '../components/Mascot';
+import Icon from '../components/Icon';
 
 interface Props {
   topics: Topic[];
@@ -22,7 +23,7 @@ export default function ProgressScreen({ topics, progress, onReset }: Props) {
   const examTotal = topics.reduce((s, t) => s + t.exam.reduce((x, q) => x + q.marks, 0), 0);
 
   return (
-    <div>
+    <div className="view-enter">
       <div className="card center" style={{ background: 'linear-gradient(140deg, #ffffff, #dff2f3)' }}>
         <Mascot size={86} mood="cheer" />
         <h1 style={{ fontSize: 22 }}>{`Level ${level}`}</h1>
@@ -74,7 +75,10 @@ export default function ProgressScreen({ topics, progress, onReset }: Props) {
           return (
             <div key={t.id} style={{ marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13.5, fontWeight: 700 }}>
-                <span>{`${t.icon} ${t.title}`}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <Icon name={t.icon} size={16} color="#8474a1" />
+                  {t.title}
+                </span>
                 <span className="muted">{`${p.percent}%`}</span>
               </div>
               <div className="bar" style={{ marginTop: 5 }}>

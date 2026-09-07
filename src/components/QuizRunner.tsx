@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Quiz } from '../types';
 import ByteSays from './ByteSays';
+import Icon from './Icon';
 
 interface Props {
   quiz: Quiz;
@@ -52,9 +53,9 @@ export default function QuizRunner({ quiz, onFinish, onExit }: Props) {
   if (done) {
     const pct = Math.round((score / quiz.questions.length) * 100);
     return (
-      <div className="fadein">
+      <div className="view-enter">
         <div className="card center">
-          <div style={{ fontSize: 46 }}>{pct >= 80 ? '🏆' : pct >= 50 ? '⚔️' : '🛡️'}</div>
+          <Icon name={pct >= 80 ? 'trophy' : pct >= 50 ? 'medal' : 'target'} size={44} color="#08979d" />
           <h2>{`${score} out of ${quiz.questions.length}`}</h2>
           <div className="bar" style={{ margin: '10px 0 14px' }}>
             <i style={{ width: `${pct}%` }} />

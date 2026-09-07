@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { IconName } from '../components/Icon';
 import FetchExecute from './FetchExecute';
 import BinaryLab from './BinaryLab';
 import SoundLab from './SoundLab';
@@ -8,92 +9,100 @@ import AlgorithmLab from './AlgorithmLab';
 import LogicLab from './LogicLab';
 import CharacterLab from './CharacterLab';
 import TraceTable from './TraceTable';
+import VideoScenes from './VideoScenes';
 import { PythonDrill, ErlDrill } from './CodeDrill';
 
 export interface DemoMeta {
   id: string;
   name: string;
   blurb: string;
-  icon: string;
+  icon: IconName;
   component: ComponentType;
 }
 
 export const DEMOS: DemoMeta[] = [
   {
+    id: 'video-scenes',
+    name: 'Animated explainers',
+    blurb: 'Six short animated scenes with narration, chapters and a scrub bar.',
+    icon: 'film',
+    component: VideoScenes,
+  },
+  {
     id: 'fetch-execute',
     name: 'Fetch decode execute',
     blurb: 'Step through a real program one register at a time and watch the CPU work.',
-    icon: '⚙️',
+    icon: 'cpu',
     component: FetchExecute,
   },
   {
     id: 'binary',
     name: 'Binary and hex lab',
     blurb: 'Flip bits, convert to hex, add binary numbers and try shifts.',
-    icon: '🔢',
+    icon: 'binary',
     component: BinaryLab,
   },
   {
     id: 'sound',
     name: 'Sound representation',
     blurb: 'Drag the sample rate and bit depth and see quality and file size change.',
-    icon: '🎵',
+    icon: 'waveform',
     component: SoundLab,
   },
   {
     id: 'image',
     name: 'Image representation',
     blurb: 'Draw on a pixel grid and calculate file sizes from colour depth.',
-    icon: '🖼️',
+    icon: 'image',
     component: ImageLab,
   },
   {
     id: 'network-layers',
     name: 'Network layers',
     blurb: 'Follow a message down the four TCP IP layers and back up again.',
-    icon: '🌐',
+    icon: 'layers',
     component: NetworkLayers,
   },
   {
     id: 'algorithms',
     name: 'Algorithm visualiser',
     blurb: 'Watch bubble, insertion and merge sort plus both searches, step by step.',
-    icon: '🔍',
+    icon: 'sort',
     component: AlgorithmLab,
   },
   {
     id: 'logic',
     name: 'Logic gate simulator',
     blurb: 'Flip switches, build truth tables and see the output light up.',
-    icon: '💡',
+    icon: 'logic',
     component: LogicLab,
   },
   {
     id: 'characters',
     name: 'Characters and ASCII',
     blurb: 'Type text and watch it become denary, binary and hex.',
-    icon: '🔤',
+    icon: 'type',
     component: CharacterLab,
   },
   {
     id: 'trace-table',
     name: 'Trace table trainer',
     blurb: 'Practise filling in trace tables and get them marked instantly.',
-    icon: '📋',
+    icon: 'table',
     component: TraceTable,
   },
   {
     id: 'python-drill',
     name: 'Python output drill',
     blurb: 'Read a short program, predict the output and get marked instantly.',
-    icon: '🐍',
+    icon: 'snake',
     component: PythonDrill,
   },
   {
     id: 'erl-drill',
     name: 'ERL output drill',
     blurb: 'The same idea using OCR Exam Reference Language, exactly as it appears in the exam.',
-    icon: '📘',
+    icon: 'book',
     component: ErlDrill,
   },
 ];

@@ -6,7 +6,7 @@ export const t1_2: Topic = {
   title: 'Memory and Storage',
   blurb: 'RAM, ROM, virtual memory, secondary storage, units, binary, hex, characters, images, sound and compression.',
   paper: 'Paper 1',
-  icon: '💾',
+  icon: 'storage',
   lessons: [
     {
       id: 't1-2-l1',

@@ -6,7 +6,7 @@ export const t1_4: Topic = {
   title: 'Network Security',
   blurb: 'The seven threats, how attacks work, and the methods used to prevent them.',
   paper: 'Paper 1',
-  icon: '🛡️',
+  icon: 'shield',
   lessons: [
     {
       id: 't1-4-l1',

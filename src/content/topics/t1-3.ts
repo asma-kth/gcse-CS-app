@@ -6,7 +6,7 @@ export const t1_3: Topic = {
   title: 'Networks, Connections and Protocols',
   blurb: 'LANs and WANs, hardware, the internet, DNS, the cloud, wired and wireless, topologies, protocols and layers.',
   paper: 'Paper 1',
-  icon: '🌐',
+  icon: 'network',
   lessons: [
     {
       id: 't1-3-l1',

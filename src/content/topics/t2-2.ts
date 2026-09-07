@@ -6,7 +6,7 @@ export const t2_2: Topic = {
   title: 'Programming Fundamentals',
   blurb: 'Variables, data types, the three constructs, strings, arrays, files, SQL and subprograms.',
   paper: 'Paper 2',
-  icon: '⌨️',
+  icon: 'keyboard',
   lessons: [
     {
       id: 't2-2-l1',

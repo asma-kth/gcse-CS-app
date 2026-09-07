@@ -6,7 +6,7 @@ export const t2_3: Topic = {
   title: 'Producing Robust Programs',
   blurb: 'Defensive design, input validation, maintainability, error types and testing.',
   paper: 'Paper 2',
-  icon: '🧪',
+  icon: 'testtube',
   lessons: [
     {
       id: 't2-3-l1',

@@ -1,6 +1,7 @@
 import type { Lesson } from '../types';
 import Blocks from '../components/Blocks';
 import ByteSays from '../components/ByteSays';
+import Icon from '../components/Icon';
 
 interface Props {
   lesson: Lesson;
@@ -12,7 +13,7 @@ interface Props {
 
 export default function LessonScreen({ lesson, done, onComplete, onBack, onFact }: Props) {
   return (
-    <div>
+    <div className="view-enter">
       <div className="card flat">
         <h1 style={{ fontSize: 20 }}>{lesson.title}</h1>
         <div className="tiny muted">{`About ${lesson.minutes} minutes of reading and playing`}</div>
@@ -25,7 +26,7 @@ export default function LessonScreen({ lesson, done, onComplete, onBack, onFact 
       <div className="card center">
         {done ? (
           <>
-            <div style={{ fontSize: 34 }}>✅</div>
+            <Icon name="check" size={34} color="#1d8a5f" />
             <p className="muted">You have already cleared this room. Reading it again costs nothing and helps a lot.</p>
             <button className="btn wide outline" onClick={onBack}>
               Back to the floor

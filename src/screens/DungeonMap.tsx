@@ -2,6 +2,7 @@ import type { Progress, Topic } from '../types';
 import { levelFromXp, rankFor } from '../game/store';
 import ByteSays from '../components/ByteSays';
 import Mascot from '../components/Mascot';
+import Icon from '../components/Icon';
 
 interface Props {
   topics: Topic[];
@@ -40,12 +41,15 @@ export default function DungeonMap({ topics, progress, onOpen, onFact }: Props) 
         <h2 style={{ marginBottom: 2 }}>{title}</h2>
         <div className="tiny muted">{subtitle}</div>
       </div>
+      <div className="stagger">
       {list.map((t) => {
         const p = topicProgress(t, progress);
         const complete = p.done === p.total;
         return (
-          <button key={t.id} className={`floor ${complete ? 'done' : ''}`} onClick={() => onOpen(t.id)}>
-            <span className="badge">{t.icon}</span>
+          <button key={t.id} className={`floor press ${complete ? 'done' : ''}`} onClick={() => onOpen(t.id)}>
+            <span className="badge">
+              <Icon name={t.icon} size={24} color="#fff" />
+            </span>
             <span className="meta">
               <span className="n">{`Floor ${t.code}`}</span>
               <div className="t">{t.title}</div>
@@ -57,15 +61,16 @@ export default function DungeonMap({ topics, progress, onOpen, onFact }: Props) 
                 {`${p.done} of ${p.total} rooms cleared`}
               </div>
             </span>
-            <span style={{ color: '#7d919b', fontSize: 20 }}>{complete ? '✓' : '›'}</span>
+            <Icon name={complete ? 'check' : 'chevron-right'} size={18} color={complete ? '#08979d' : '#7d919b'} />
           </button>
         );
       })}
+      </div>
     </div>
   );
 
   return (
-    <div>
+    <div className="view-enter">
       <div className="card" style={{ background: 'linear-gradient(140deg, #ffffff, #dff2f3)' }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <Mascot size={72} mood="cheer" className="bob" />
@@ -90,7 +95,10 @@ export default function DungeonMap({ topics, progress, onOpen, onFact }: Props) 
             <div className="tiny muted">Data shards</div>
           </div>
           <div className="center">
-            <div style={{ fontWeight: 800, color: '#055b5c', fontSize: 18 }}>{`${progress.streakDays} 🔥`}</div>
+            <div style={{ fontWeight: 800, color: '#055b5c', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+              {progress.streakDays}
+              <Icon name="flame" size={16} color="#e0a02a" />
+            </div>
             <div className="tiny muted">Day streak</div>
           </div>
         </div>

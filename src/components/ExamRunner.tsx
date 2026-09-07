@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { ExamQuestion } from '../types';
 import ByteSays from './ByteSays';
+import Icon from './Icon';
 
 interface Props {
   questions: ExamQuestion[];
@@ -62,17 +63,17 @@ export default function ExamRunner({ questions, topicTitle, onFinish, onExit }: 
   if (done) {
     const total = results.reduce((s, r) => s + r.earned, 0);
     const pct = Math.round((total / totalMarks) * 100);
-    const grade = pct >= 85 ? '8 or 9' : pct >= 70 ? '7' : pct >= 55 ? '5 or 6' : pct >= 40 ? '4' : 'below 4';
+    const grade = pct >= 85 ? 'around grade 8 or 9' : pct >= 70 ? 'around grade 7' : pct >= 55 ? 'around grade 5 or 6' : pct >= 40 ? 'around grade 4' : 'below grade 4';
     return (
       <div className="fadein">
         <div className="card center">
-          <div style={{ fontSize: 46 }}>{pct >= 70 ? '👑' : pct >= 40 ? '⚔️' : '🗝️'}</div>
+          <Icon name={pct >= 70 ? 'crown' : pct >= 40 ? 'medal' : 'key'} size={44} color="#08979d" />
           <h2>{`${total} out of ${totalMarks} marks`}</h2>
           <div className="bar" style={{ margin: '10px 0 12px' }}>
             <i style={{ width: `${pct}%` }} />
           </div>
           <p className="muted">
-            {`That is ${pct} percent, which on a typical paper sits around grade ${grade}. Read the mark schemes below and note the exact words you missed.`}
+            {`That is ${pct} percent, which on a typical paper sits ${grade}. Read the mark schemes below and note the exact words you missed.`}
           </p>
           <button className="btn wide" onClick={onExit}>
             Leave the boss room
@@ -153,7 +154,9 @@ export default function ExamRunner({ questions, topicTitle, onFinish, onExit }: 
             <div className="card-title">{`Auto marked: ${res.earned} out of ${q.marks}`}</div>
             {q.markScheme.map((mp, n) => (
               <div key={n} className={`mark-pt ${res.hits[n] ? 'hit' : 'miss'}`}>
-                <span className="ic">{res.hits[n] ? '✓' : '✗'}</span>
+                <span className="ic">
+                  <Icon name={res.hits[n] ? 'check' : 'close'} size={14} />
+                </span>
                 <span>{mp.text}</span>
               </div>
             ))}

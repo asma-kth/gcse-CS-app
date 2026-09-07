@@ -6,7 +6,7 @@ export const t2_4: Topic = {
   title: 'Boolean Logic',
   blurb: 'AND, OR and NOT, logic diagrams, truth tables and combined circuits.',
   paper: 'Paper 2',
-  icon: '💡',
+  icon: 'logic',
   lessons: [
     {
       id: 't2-4-l1',

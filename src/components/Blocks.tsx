@@ -1,6 +1,7 @@
 import type { Block } from '../types';
 import { DIAGRAMS } from '../diagrams';
 import { DEMO_MAP } from '../presentations';
+import Icon from './Icon';
 
 function Diagram({ id, caption }: { id: string; caption?: string }) {
   const Cmp = DIAGRAMS[id];
@@ -22,7 +23,7 @@ function Demo({ id, caption }: { id: string; caption?: string }) {
   return (
     <div className="blk card" style={{ background: '#fbfaff' }}>
       <div className="card-title">
-        <span>{meta.icon}</span>
+        <Icon name={meta.icon} size={18} />
         <span>{`Interactive: ${meta.name}`}</span>
       </div>
       {caption && (

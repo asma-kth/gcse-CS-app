@@ -41,9 +41,26 @@ answer and an examiner tip for each one.
 Explanations are written to be explicit rather than terse. Each one includes worked examples,
 real life scenarios and diagrams.
 
-### Interactive presentations
-Eleven hands on labs, all built as inline SVG and React so they work offline:
+### Mock exam papers
+Six full papers, three for each component, each one timed and marked automatically:
 
+| Paper | Focus | Marks |
+|---|---|---|
+| Paper 1 Mock A | Systems architecture, memory, storage, data representation | 48 |
+| Paper 1 Mock B | Networks, connections, protocols, layers, security | 48 |
+| Paper 1 Mock C | Full component mix including systems software and impacts | 44 |
+| Paper 2 Mock A | Computational thinking, searching, sorting, logic | 47 |
+| Paper 2 Mock B | Programming, strings, arrays, files, SQL, testing | 48 |
+| Paper 2 Mock C | Full component mix including languages, IDEs and ERL | 47 |
+
+Each paper opens with a briefing card, runs a countdown timer that hands the paper in
+automatically when it expires, has a question grid for jumping around, and finishes with a
+section by section breakdown plus every mark scheme and model answer.
+
+### Interactive presentations
+Twelve hands on labs, all built as inline SVG and React so they work offline:
+
+- Six animated explainer scenes with narration captions, chapters and a scrub bar
 - Fetch decode execute cycle, stepping through a real three instruction program register by register
 - Binary and hex lab: bit flipping, hex nibbles, binary addition with overflow detection, binary shifts
 - Sound representation: sample rate, bit depth and duration sliders with live file size maths
@@ -56,7 +73,24 @@ Eleven hands on labs, all built as inline SVG and React so they work offline:
 - Python output drill
 - OCR Exam Reference Language output drill
 
+### Animated explainer scenes
+Six short scenes that behave like videos but are drawn live rather than played from a file:
+how a web page reaches your phone, inside the processor, sound becomes numbers, a picture becomes
+bits, bubble sort in motion, and wrapping a message in layers. Each has a play and pause bar, a
+draggable scrubber, chapter buttons and narration captions.
+
+Briefs for producing filmed or AI generated versions of the same six scenes are in
+[`docs/video-briefs.md`](docs/video-briefs.md).
+
 ### Design notes
+- **No emoji anywhere.** Every icon is a hand drawn SVG glyph in `src/components/Icon.tsx`, built
+  on one 24 unit grid with a 1.7 unit stroke and rounded caps, inheriting colour through
+  `currentColor`. Nothing is fetched at runtime and there are no icon font dependencies.
+- **Custom load screen** with a boot sequence, an animated castle outline, the mascot and a
+  progress bar, which then fades into the dungeon.
+- **Motion system** in `src/theme.css`: page transitions that slide forward and back, staggered
+  list entrances, pressable cards, an animated XP counter, confetti on a perfect quiz or a strong
+  paper, and a level up banner. All of it is disabled under `prefers-reduced-motion`.
 - Light theme only. There is no dark mode, by request, and the Android theme forces light too.
 - Palette: `#CCABD8`, `#8474A1`, `#6EC6CA`, `#08979D`, `#055B5C`.
 - No em dashes anywhere in the content.
@@ -116,9 +150,10 @@ topic is a floor, every lesson is a room, and every quiz is a guardian standing 
 the boss fight.
 
 Inside you get clear explanations written in plain English, with real life examples for every
-idea, diagrams that show what is actually happening, eleven interactive labs you can play with,
-a full Python practice unit, a guide to OCR Exam Reference Language, twenty six quizzes and
-sixty five past paper style questions that mark themselves and show you the mark scheme.
+idea, diagrams that show what is actually happening, twelve interactive labs including six
+animated explainer scenes, a full Python practice unit, a guide to OCR Exam Reference Language,
+twenty six quizzes, sixty five past paper style questions, and six full timed mock exam papers
+that all mark themselves and show you the mark scheme.
 
 Byte the robot cat travels with you and throws a fun fact whenever you least expect it.
 
@@ -134,15 +169,18 @@ calls at runtime, and stores progress only in the device browser storage used by
 ```
 src/
   content/topics/   one file per specification topic, lessons, quizzes and exam questions
+  content/papers/   the six timed mock exam papers
   content/facts.ts  the fun facts Byte throws
   diagrams/         static SVG diagrams referenced by lesson blocks
   presentations/    the interactive labs
-  components/       block renderer, quiz runner, auto marking exam runner, mascot
-  screens/          dungeon map, topic, lesson, labs, facts, progress
+  components/       block renderer, quiz runner, exam runner, paper runner, icons, mascot,
+                    load screen and celebration effects
+  screens/          dungeon map, topic, lesson, papers, labs, facts, progress
   game/store.ts     XP, levels, ranks, streaks, saving
   types.ts          the content model
 android/            the Capacitor Android project
 assets/             icon and splash artwork
+docs/               video briefs for filmed versions of the animated scenes
 ```
 
 ## Adding a new topic

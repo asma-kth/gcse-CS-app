@@ -6,7 +6,7 @@ export const t1_1: Topic = {
   title: 'Systems Architecture',
   blurb: 'The CPU, the fetch decode execute cycle, registers, performance and embedded systems.',
   paper: 'Paper 1',
-  icon: '⚙️',
+  icon: 'cpu',
   lessons: [
     {
       id: 't1-1-l1',

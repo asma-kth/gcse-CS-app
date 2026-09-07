@@ -6,7 +6,7 @@ export const pythonUnit: Topic = {
   title: 'Python Practice Unit',
   blurb: 'Every programming technique in the OCR specification, written in Python, with worked examples and drills.',
   paper: 'Skills',
-  icon: '🐍',
+  icon: 'snake',
   lessons: [
     {
       id: 'py-l1',
