@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -33,9 +34,29 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+
+        <!-- AdMob application ID.
+             This is Google's official sample app ID, which serves test ads and
+             earns nothing. Replace it with your own ID from the AdMob console
+             before a release build. The app crashes on start if this is missing
+             or malformed, so do not delete it. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- The Google Mobile Ads SDK adds the advertising ID permission automatically
+         during manifest merging. Byte Quest serves only non personalised ads to an
+         audience of 14 to 16 year olds, so it must not collect an advertising ID at
+         all. Removing the permission here keeps the merged manifest honest and means
+         the Play Console advertising ID declaration can truthfully say no.
+         If you ever switch to personalised ads for an adult audience, delete this
+         block and update the Play Console declaration to match. -->
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
 </manifest>

@@ -39,6 +39,11 @@
 
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Height of the ad banner currently on screen, or 0 when there is none.
+     Set by the app shell so the tab bar, page padding and toast all move
+     together and nothing is ever hidden behind an advert. */
+  --ad-space: 0px;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -88,7 +93,7 @@ code, pre { font-family: var(--mono); }
 
 .app-body {
   flex: 1;
-  padding: 12px 14px calc(96px + var(--safe-bottom));
+  padding: 12px 14px calc(96px + var(--ad-space) + var(--safe-bottom));
 }
 
 .topbar {
@@ -134,7 +139,7 @@ code, pre { font-family: var(--mono); }
 
 .tabbar {
   position: fixed;
-  bottom: 0; left: 50%;
+  bottom: var(--ad-space); left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 720px;
@@ -454,7 +459,7 @@ input:focus, select:focus { outline: none; border-color: var(--aqua); }
 .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 .toast {
-  position: fixed; left: 50%; bottom: calc(84px + var(--safe-bottom));
+  position: fixed; left: 50%; bottom: calc(84px + var(--ad-space) + var(--safe-bottom));
   transform: translateX(-50%);
   background: var(--teal-deep); color: #fff;
   padding: 10px 18px; border-radius: var(--r-pill);
