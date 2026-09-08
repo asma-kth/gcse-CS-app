@@ -103,7 +103,17 @@ npm install
 npm run dev        # development server
 npm run build      # production build into dist/
 npm run preview    # preview the production build
+npm run audit      # check the specification content for mistakes
 ```
+
+### The content audit
+
+`npm run audit` checks the content data rather than the interface. It fails the build if it finds
+duplicate ids, a quiz answer index pointing outside its options, an exam question with fewer mark
+points than marks, a lesson referencing a diagram or lab that does not exist, a table row that
+does not match its header, a paper whose declared total does not match its questions, or an em
+dash anywhere in the content. It prints a summary of everything it counted, so it doubles as a
+quick inventory.
 
 ## Building the Android app for Google Play
 

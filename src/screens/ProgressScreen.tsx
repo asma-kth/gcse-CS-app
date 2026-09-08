@@ -48,7 +48,7 @@ export default function ProgressScreen({ topics, progress, onReset }: Props) {
         </div>
         <div className="kv">
           <span>Day streak</span>
-          <b>{`${progress.streakDays} days`}</b>
+          <b>{`${progress.streakDays} ${progress.streakDays === 1 ? 'day' : 'days'}`}</b>
         </div>
         <div className="kv">
           <span>Study rooms cleared</span>

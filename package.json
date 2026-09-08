@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false",
     "cap:sync": "npm run build && npx cap sync android",
-    "cap:open": "npx cap open android"
+    "cap:open": "npx cap open android",
+    "audit": "vite build --ssr scripts/audit-content.ts --outDir node_modules/.audit --logLevel error && node node_modules/.audit/audit-content.js"
   },
   "dependencies": {
     "@capacitor/android": "^7.6.9",

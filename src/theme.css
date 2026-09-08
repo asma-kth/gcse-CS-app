@@ -198,7 +198,7 @@ code, pre { font-family: var(--mono); }
 .btn.ghost { background: var(--lilac-soft); color: var(--purple-deep); box-shadow: none; }
 .btn.outline { background: transparent; border: 2px solid var(--teal); color: var(--teal); box-shadow: none; }
 .btn.purple { background: var(--purple); }
-.btn.small { padding: 8px 14px; font-size: 14px; }
+.btn.small { padding: 8px 14px; font-size: 14px; min-height: 40px; }
 
 /* ---------- progress ---------- */
 

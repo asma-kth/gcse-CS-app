@@ -9,3 +9,7 @@ android/local.properties
 *.keystore
 *.jks
 .env
+dist-audit
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+node_modules/.audit
