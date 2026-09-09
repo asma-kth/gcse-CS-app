@@ -1,5 +1,28 @@
 apply plugin: 'com.android.application'
 
+// Release signing.
+//
+// The upload key must never live in version control. Gradle looks for a file
+// called keystore.properties next to this one, which is git ignored, and falls
+// back to environment variables so a CI job can sign without a file.
+//
+// Create it with scripts/release.sh, or by hand:
+//   storeFile=/absolute/path/to/byte-quest-upload.jks
+//   storePassword=...
+//   keyAlias=upload
+//   keyPassword=...
+def keystorePropertiesFile = rootProject.file("app/keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def resolvedStoreFile = keystoreProperties['storeFile'] ?: System.getenv('BQ_STORE_FILE')
+def resolvedStorePassword = keystoreProperties['storePassword'] ?: System.getenv('BQ_STORE_PASSWORD')
+def resolvedKeyAlias = keystoreProperties['keyAlias'] ?: System.getenv('BQ_KEY_ALIAS')
+def resolvedKeyPassword = keystoreProperties['keyPassword'] ?: System.getenv('BQ_KEY_PASSWORD')
+def canSignRelease = resolvedStoreFile != null && file(resolvedStoreFile).exists()
+
 android {
     namespace "com.bytequest.gcsecs"
     compileSdk rootProject.ext.compileSdkVersion
@@ -16,10 +39,29 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (canSignRelease) {
+                storeFile file(resolvedStoreFile)
+                storePassword resolvedStorePassword
+                keyAlias resolvedKeyAlias
+                keyPassword resolvedKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Shrinking is off because the app is a WebView shell. Almost all of
+            // the code is the JavaScript bundle, which Vite has already minified,
+            // so R8 would add build time and crash risk for very little gain.
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (canSignRelease) {
+                signingConfig signingConfigs.release
+            } else {
+                logger.warn("No upload keystore found. The release build will be UNSIGNED and Play will reject it. Run scripts/release.sh to set one up.")
+            }
         }
     }
 }

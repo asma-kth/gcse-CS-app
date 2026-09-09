@@ -125,7 +125,28 @@ npm run cap:sync   # build the web app and copy it into the Android project
 npm run cap:open   # open the project in Android Studio
 ```
 
-Then, to produce a release for the Play Store:
+### Publishing to Google Play
+
+There is a complete, step by step submission guide in
+[`docs/play-store-submission.md`](docs/play-store-submission.md). It contains the ready to paste
+store listing text, the exact answers for the content rating, target audience and data safety
+forms, and where every graphic lives. The privacy policy Play requires is in
+[`docs/privacy-policy.md`](docs/privacy-policy.md), with an HTML copy ready to host on GitHub Pages.
+
+The quickest route to a signed bundle is:
+
+```bash
+./scripts/release.sh
+```
+
+On the first run it offers to create your upload keystore, then runs the content audit, builds the
+web app, syncs it into the Android project and produces `release/app-release.aab`. Pass a version
+name, as in `./scripts/release.sh 1.0.1`, to bump `versionCode` and `versionName` for an update.
+
+The keystore and its password file are git ignored. Back them up before you publish: Play only
+accepts updates signed with the same key.
+
+Then, to produce a release for the Play Store by hand instead:
 
 1. In Android Studio choose **Build > Generate Signed Bundle / APK**, pick **Android App Bundle**.
 2. Create or select an upload keystore. Keep the keystore and its passwords safe, because Google
@@ -144,8 +165,11 @@ cd android && ./gradlew bundleRelease
 
 ### Play Console assets
 - App icon 512 x 512: `assets/play-store-icon-512.png`
+- Feature graphic 1024 x 500: `assets/play/feature-graphic.png`
+- Phone screenshots, eight at 1080 x 1920: `assets/play/screenshots/`
 - Splash and feature preview: `assets/play-store-feature-preview.png`
-- Source artwork: `assets/icon.svg`, `assets/icon-foreground.svg`, `assets/splash.svg`
+- Source artwork: `assets/icon.svg`, `assets/icon-foreground.svg`, `assets/splash.svg`,
+  `assets/play/feature-graphic.svg`
 
 ### Suggested store listing
 
@@ -190,7 +214,8 @@ src/
   types.ts          the content model
 android/            the Capacitor Android project
 assets/             icon and splash artwork
-docs/               video briefs for filmed versions of the animated scenes
+docs/               the Play Store submission guide, the privacy policy, and video briefs
+scripts/            the content audit and the signed release build
 ```
 
 ## Adding a new topic

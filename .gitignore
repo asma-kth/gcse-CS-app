@@ -13,3 +13,5 @@ dist-audit
 tsconfig.tsbuildinfo
 *.tsbuildinfo
 node_modules/.audit
+android/app/keystore.properties
+release/
