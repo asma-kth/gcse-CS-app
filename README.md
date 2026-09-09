@@ -142,66 +142,6 @@ npm run cap:sync
 cd android && ./gradlew bundleRelease
 ```
 
-## Advertising
-
-The app shows a single banner advert to stay free, using Google AdMob through the
-`@capacitor-community/admob` plugin. On the web build, and in every test, the ad layer is
-completely inert: no SDK starts, no network request is made and no space is reserved.
-
-### The rules the code enforces
-
-Byte Quest is aimed at 14 to 16 year olds. That puts it under Google Play's Families policy and,
-in the UK, under the ICO Age Appropriate Design Code. Three rules are built into the code rather
-than left to discipline:
-
-1. **Non personalised only.** `tagForUnderAgeOfConsent` is set at initialisation, every request
-   carries `npa`, and `maxAdContentRating` is General. No behavioural targeting.
-2. **No advertising ID.** The Google Mobile Ads SDK adds the `AD_ID` permission during manifest
-   merging. `AndroidManifest.xml` removes it again with `tools:node="remove"`, so the Play Console
-   advertising ID declaration can truthfully answer no.
-3. **Never during learning.** `src/ads/useAds.ts` allows a banner only on browsing screens. It is
-   hidden the moment a lesson, quiz, boss room or timed paper opens. Full screen interstitials
-   fire only when a student leaves a *finished* activity, never mid task, and are capped at one
-   per 8 minutes and one per 3 completions.
-
-Note that `tagForChildDirectedTreatment` is deliberately **false**. Google treats it and
-`tagForUnderAgeOfConsent` as mutually exclusive and setting both is a policy violation. A GCSE
-revision app is not child directed in the under 13 sense; its users are below the age of consent
-in much of Europe, which is what the under age flag signals.
-
-### Going live
-
-Out of the box everything uses Google's official test IDs, which serve real looking ads and earn
-nothing. That is deliberate: clicking your own live ads gets AdMob accounts suspended.
-
-1. Create an AdMob account and register the Android app to get an application ID and two ad unit
-   IDs, one banner and one interstitial.
-2. Put the application ID in `android/app/src/main/AndroidManifest.xml`, replacing the sample
-   `ca-app-pub-3940256099942544~3347511713`. **The app crashes on launch if this value is missing
-   or malformed.**
-3. Put the two unit IDs into `LIVE_UNITS` in `src/ads/config.ts`. While either is left empty the
-   app keeps using test units, so a half finished setup can never accidentally go live.
-4. In the Play Console, complete **Policy → App content**:
-   - *Ads*: declare that the app contains ads.
-   - *Target audience and content*: this decides whether the Families policy applies. Only
-     Google certified ad SDKs may be used for a child or mixed audience, and AdMob is certified.
-   - *Data safety* and *Advertising ID*: with the `AD_ID` permission removed, answer that no
-     advertising ID is collected.
-5. Write a privacy policy and link it in the Play Console. It must say that adverts are served by
-   Google, that they are non personalised, and that no advertising ID is collected. The app already
-   tells students this on the progress screen.
-
-To ship a build with no advertising at all, set `ADS_ENABLED` to false in `src/ads/config.ts`.
-
-### A word on the trade off
-
-Non personalised ads to a young audience earn considerably less than targeted ads to adults, often
-several times less per thousand impressions. With a single banner on menu screens only, revenue
-from a school sized audience will be modest. If the goal is to fund development rather than to
-cover hosting, a one off paid unlock or a school licence is usually a better fit for an education
-app, and it avoids the Families policy surface entirely. The ad code is isolated in `src/ads/` so
-either route stays open.
-
 ### Play Console assets
 - App icon 512 x 512: `assets/play-store-icon-512.png`
 - Splash and feature preview: `assets/play-store-feature-preview.png`
@@ -227,21 +167,12 @@ that all mark themselves and show you the mark scheme.
 
 Byte the robot cat travels with you and throws a fun fact whenever you least expect it.
 
-The course works offline once installed. There are no accounts and no sign up, progress is saved
-on your own device, and the adverts are non personalised and never interrupt a lesson or a timed
-paper.
+Everything works offline. There are no accounts, no adverts and no data collection. Progress is
+saved on the device.
 
 ### Data safety declaration
-The app itself collects no personal data and stores progress only in the device browser storage
-used by the WebView, which never leaves the phone. It requires only the internet permission, and
-the advertising ID permission is explicitly removed.
-
-Because it serves adverts, the declaration is not simply "no data collected". Google's ad SDK
-makes network requests and, for the purpose of serving and measuring a non personalised advert,
-handles coarse technical data such as approximate location derived from the IP address. Declare
-this in the Play Console under Data safety as data shared for advertising, and answer no to the
-advertising ID question. If you disable ads by setting `ADS_ENABLED` to false, the app makes no
-network calls at all and the simpler declaration applies again.
+The app collects no personal data, requires no permissions beyond the default, has no network
+calls at runtime, and stores progress only in the device browser storage used by the WebView.
 
 ## Project structure
 
@@ -250,7 +181,6 @@ src/
   content/topics/   one file per specification topic, lessons, quizzes and exam questions
   content/papers/   the six timed mock exam papers
   content/facts.ts  the fun facts Byte throws
-  ads/              ad configuration, the AdMob service and the placement rules
   diagrams/         static SVG diagrams referenced by lesson blocks
   presentations/    the interactive labs
   components/       block renderer, quiz runner, exam runner, paper runner, icons, mascot,

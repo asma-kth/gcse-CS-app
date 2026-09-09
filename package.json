@@ -14,7 +14,6 @@
     "audit": "vite build --ssr scripts/audit-content.ts --outDir node_modules/.audit --logLevel error && node node_modules/.audit/audit-content.js"
   },
   "dependencies": {
-    "@capacitor-community/admob": "^7.2.0",
     "@capacitor/android": "^7.6.9",
     "@capacitor/core": "^7.6.9",
     "react": "^19.2.0",

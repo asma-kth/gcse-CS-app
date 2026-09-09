@@ -101,20 +101,6 @@ export default function ProgressScreen({ topics, progress, onReset }: Props) {
       </div>
 
       <div className="card">
-        <div className="card-title">
-          <Icon name="shield" size={18} />
-          Ads and your data
-        </div>
-        <p className="tiny muted" style={{ marginBottom: 0 }}>
-          This app shows a small banner advert on the menu screens to keep it free. Adverts never
-          appear while you are reading a lesson, answering a quiz, or sitting a timed paper.
-          Because Byte Quest is made for students, the adverts are non personalised: they are not
-          chosen from your browsing history and no advertising ID is collected. Your progress is
-          stored only on this device and is never uploaded.
-        </p>
-      </div>
-
-      <div className="card">
         <div className="card-title">Start again</div>
         <p className="tiny muted">
           This wipes every score, all XP and your streak. Your progress is stored only on this device, so nothing is

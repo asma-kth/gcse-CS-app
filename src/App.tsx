@@ -16,8 +16,6 @@ import PaperRunner from './components/PaperRunner';
 import LoadScreen from './components/LoadScreen';
 import Icon, { type IconName } from './components/Icon';
 import { Confetti, LevelUp } from './components/Celebration';
-import { useBanner } from './ads/useAds';
-import { maybeShowInterstitial } from './ads/ads';
 
 type Tab = 'dungeon' | 'papers' | 'labs' | 'code' | 'facts' | 'me';
 
@@ -49,9 +47,6 @@ export default function App() {
   const [direction, setDirection] = useState<'forward' | 'back'>('forward');
 
   const lastLevel = useRef(levelFromXp(progress.xp).level);
-
-  // The banner only appears on browsing screens. See ads/useAds.ts for the rule.
-  const { reservedSpace } = useBanner(view.kind);
 
   /* Celebrate the moment a new level is reached. */
   useEffect(() => {
@@ -87,16 +82,6 @@ export default function App() {
   const pop = (v: View) => {
     setDirection('back');
     setView(v);
-  };
-
-  /**
-   * Leaving a finished activity is the only moment a full screen ad is
-   * allowed. The student has their result, nothing is timed, and nothing is
-   * half read. The ad service applies its own frequency cap on top.
-   */
-  const leaveActivity = (v: View) => {
-    pop(v);
-    void maybeShowInterstitial();
   };
 
   const onFact = useCallback((i: number) => seeFact(i), [seeFact]);
@@ -190,7 +175,7 @@ export default function App() {
           if (marks / total >= 0.7) setConfetti((c) => c + 1);
           setToast(`Paper handed in: ${marks} of ${total} marks.`);
         }}
-        onExit={() => leaveActivity({ kind: 'tab' })}
+        onExit={() => pop({ kind: 'tab' })}
       />
     );
   } else {
@@ -239,7 +224,7 @@ export default function App() {
             if (score === total) setConfetti((c) => c + 1);
             setToast(score === total ? 'Perfect run. Bonus XP awarded.' : `Guardian scored ${score} of ${total}.`);
           }}
-          onExit={() => leaveActivity({ kind: 'topic', topicId: topic.id })}
+          onExit={() => pop({ kind: 'topic', topicId: topic.id })}
         />
       );
     } else {
@@ -255,7 +240,7 @@ export default function App() {
             if (marks / total >= 0.7) setConfetti((c) => c + 1);
             setToast(`Boss defeated with ${marks} of ${total} marks.`);
           }}
-          onExit={() => leaveActivity({ kind: 'topic', topicId: topic.id })}
+          onExit={() => pop({ kind: 'topic', topicId: topic.id })}
         />
       );
     }
@@ -267,7 +252,7 @@ export default function App() {
     <>
       {booting && <LoadScreen onDone={() => setBooting(false)} />}
 
-      <div className="app" style={{ '--ad-space': `${reservedSpace}px` } as React.CSSProperties}>
+      <div className="app">
         <header className="topbar">
           {back && (
             <button className="back-btn press" onClick={back} aria-label="Go back">
